@@ -4,10 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>إضافة عربون</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600&display=swap" rel="stylesheet">
     <style>
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f5f5f5;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -16,37 +17,46 @@
         }
         .container {
             background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            width: 400px;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 500px;
+            box-sizing: border-box;
         }
         .container h1 {
             text-align: center;
             margin-bottom: 20px;
+            color: #333;
+            font-weight: 600;
         }
         .form-group {
-            margin-bottom: 15px;
+            margin-bottom: 20px;
         }
         .form-group label {
             display: block;
             margin-bottom: 5px;
-            font-weight: bold;
+            font-weight: 600;
+            color: #555;
         }
         .form-group input {
             width: 100%;
-            padding: 8px;
+            padding: 12px;
             border: 1px solid #ddd;
-            border-radius: 4px;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
         }
         .form-group button {
             background: #007bff;
             color: #fff;
             border: none;
-            padding: 10px 15px;
-            border-radius: 4px;
+            padding: 12px;
+            border-radius: 5px;
             cursor: pointer;
-            font-size: 16px;
+            font-size: 18px;
+            width: 100%;
+            transition: background-color 0.3s ease;
         }
         .form-group button:hover {
             background: #0056b3;
@@ -119,6 +129,7 @@
             .then(result => {
                 if (result.ok) {
                     alert('تم إرسال التفاصيل بنجاح!');
+                    clearForm();
                 } else {
                     alert('حدث خطأ أثناء إرسال التفاصيل.');
                 }
@@ -127,6 +138,14 @@
                 console.error('Error:', error);
                 alert('حدث خطأ أثناء إرسال التفاصيل.');
             });
+        }
+
+        function clearForm() {
+            document.getElementById('orderNumber').value = '';
+            document.getElementById('customerName').value = '';
+            document.getElementById('customerAddress').value = '';
+            document.getElementById('customerPhone').value = '';
+            document.getElementById('depositAmount').value = '';
         }
     </script>
 </body>
