@@ -187,11 +187,12 @@
             document.addEventListener('mouseup', onMouseUp);
         });
 
-        function onMouseMove(e) {
-            if (!isDragging) return;
-            const diffY = e.clientY - startY;
-            window.scrollTo(0, scrollTop - diffY);
-        }
+        document.addEventListener('mousemove', function(e) {
+            if (isDragging) {
+                const diffY = e.clientY - startY;
+                window.scrollTo(0, scrollTop - diffY);
+            }
+        });
 
         function onMouseUp() {
             isDragging = false;
