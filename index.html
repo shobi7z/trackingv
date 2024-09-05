@@ -11,9 +11,8 @@
             background-color: #f5f5f5;
             margin: 0;
             padding: 0;
-            overflow: hidden; /* Prevent default scrolling */
-            position: relative;
             height: 200vh; /* Added to ensure scroll */
+            overflow: auto; /* Enable default scrollbar */
         }
         .container {
             background: #fff;
@@ -63,23 +62,29 @@
         .form-group button:hover {
             background: #0056b3;
         }
-        .scroll-bar {
+        /* Scroll buttons */
+        .scroll-to-top,
+        .scroll-to-bottom {
             position: fixed;
-            top: 0;
-            right: 0;
-            width: 10px;
-            height: 100%;
-            background: #ddd;
+            right: 20px;
+            width: 40px;
+            height: 40px;
+            background: #007bff;
+            color: #fff;
+            border: none;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            text-align: center;
+            line-height: 40px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             z-index: 1000;
         }
-        .scroll-bar-inner {
-            width: 100%;
-            background: #007bff;
-            height: 50px; /* Adjust height as needed */
-            position: absolute;
-            top: 0;
-            cursor: pointer;
-            border-radius: 5px;
+        .scroll-to-top {
+            bottom: 80px;
+        }
+        .scroll-to-bottom {
+            bottom: 20px;
         }
     </style>
 </head>
@@ -111,9 +116,9 @@
         </div>
     </div>
 
-    <div class="scroll-bar" id="scrollBar">
-        <div class="scroll-bar-inner" id="scrollBarInner"></div>
-    </div>
+    <!-- Scroll Buttons -->
+    <button class="scroll-to-top" onclick="scrollToTop()">↑</button>
+    <button class="scroll-to-bottom" onclick="scrollToBottom()">↓</button>
 
     <script>
         const botToken = '7333664718:AAGnOgksdlc7cEbdTWwQdOZvHcM69OTsI-U';
@@ -172,32 +177,13 @@
             document.getElementById('depositAmount').value = '';
         }
 
-        // Scroll bar functionality
-        const scrollBar = document.getElementById('scrollBar');
-        const scrollBarInner = document.getElementById('scrollBarInner');
-        let isDragging = false;
-        let startY;
-        let scrollTop;
+        // Scroll buttons functionality
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
 
-        scrollBarInner.addEventListener('mousedown', function(e) {
-            isDragging = true;
-            startY = e.clientY;
-            scrollTop = window.scrollY;
-            document.addEventListener('mousemove', onMouseMove);
-            document.addEventListener('mouseup', onMouseUp);
-        });
-
-        document.addEventListener('mousemove', function(e) {
-            if (isDragging) {
-                const diffY = e.clientY - startY;
-                window.scrollTo(0, scrollTop - diffY);
-            }
-        });
-
-        function onMouseUp() {
-            isDragging = false;
-            document.removeEventListener('mousemove', onMouseMove);
-            document.removeEventListener('mouseup', onMouseUp);
+        function scrollToBottom() {
+            window.scrollTo({ top: document.body.scrollHeight, behavior: 'smooth' });
         }
     </script>
 </body>
