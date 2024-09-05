@@ -9,11 +9,11 @@
         body {
             font-family: 'Cairo', sans-serif;
             background-color: #f5f5f5;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
             margin: 0;
+            padding: 0;
+            overflow: hidden; /* Prevent default scrolling */
+            position: relative;
+            height: 200vh; /* Added to ensure scroll */
         }
         .container {
             background: #fff;
@@ -23,6 +23,8 @@
             width: 100%;
             max-width: 500px;
             box-sizing: border-box;
+            margin: 0 auto;
+            margin-top: 50px;
         }
         .container h1 {
             text-align: center;
@@ -61,6 +63,24 @@
         .form-group button:hover {
             background: #0056b3;
         }
+        .scroll-bar {
+            position: fixed;
+            top: 0;
+            right: 0;
+            width: 10px;
+            height: 100%;
+            background: #ddd;
+            z-index: 1000;
+        }
+        .scroll-bar-inner {
+            width: 100%;
+            background: #007bff;
+            height: 50px; /* Adjust height as needed */
+            position: absolute;
+            top: 0;
+            cursor: pointer;
+            border-radius: 5px;
+        }
     </style>
 </head>
 <body>
@@ -89,6 +109,10 @@
         <div class="form-group">
             <button type="button" onclick="sendToTelegram()">إرسال</button>
         </div>
+    </div>
+
+    <div class="scroll-bar" id="scrollBar">
+        <div class="scroll-bar-inner" id="scrollBarInner"></div>
     </div>
 
     <script>
@@ -146,6 +170,33 @@
             document.getElementById('customerAddress').value = '';
             document.getElementById('customerPhone').value = '';
             document.getElementById('depositAmount').value = '';
+        }
+
+        // Scroll bar functionality
+        const scrollBar = document.getElementById('scrollBar');
+        const scrollBarInner = document.getElementById('scrollBarInner');
+        let isDragging = false;
+        let startY;
+        let scrollTop;
+
+        scrollBarInner.addEventListener('mousedown', function(e) {
+            isDragging = true;
+            startY = e.clientY;
+            scrollTop = window.scrollY;
+            document.addEventListener('mousemove', onMouseMove);
+            document.addEventListener('mouseup', onMouseUp);
+        });
+
+        function onMouseMove(e) {
+            if (!isDragging) return;
+            const diffY = e.clientY - startY;
+            window.scrollTo(0, scrollTop - diffY);
+        }
+
+        function onMouseUp() {
+            isDragging = false;
+            document.removeEventListener('mousemove', onMouseMove);
+            document.removeEventListener('mouseup', onMouseUp);
         }
     </script>
 </body>
