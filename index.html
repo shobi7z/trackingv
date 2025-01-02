@@ -4,144 +4,113 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>تتبع الطلب</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;600&display=swap">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap">
     <style>
-        body {
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #f1f1f1 0%, #e3e3e3 100%);
-            color: #333;
-            margin: 0;
-            padding: 20px;
-        }
-        .container {
-            max-width: 600px;
-            margin: 0 auto;
-            background: #fff;
-            padding: 40px;
-            border-radius: 15px;
-            box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .container:hover {
-            transform: scale(1.02);
-            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
-        }
-        h1 {
-            color: #007bff;
-            font-size: 32px;
-            margin-bottom: 20px;
-            font-weight: 600;
-        }
-        label {
-            display: block;
-            font-size: 18px;
-            margin: 20px 0 10px;
-            color: #555;
-        }
-        input[type="text"] {
-            width: 100%;
-            padding: 15px;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 16px;
-            margin-bottom: 20px;
-            transition: border-color 0.3s, box-shadow 0.3s;
-            box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.1);
-        }
-        input[type="text"]:focus {
-            border-color: #007bff;
-            box-shadow: 0 4px 8px rgba(0, 123, 255, 0.2);
-        }
-        button {
-            width: 100%;
-            padding: 15px;
-            background: #007bff;
-            color: #fff;
-            border: none;
-            border-radius: 8px;
-            font-size: 18px;
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.3s;
-        }
-        button:hover {
-            background-color: #0056b3;
-            transform: translateY(-3px);
+        :root {
+            --primary-color: #1e3a8a;
+            --secondary-color: #6366f1;
+            --text-color: #f3f4f6;
+            --background-color: #111827;
+            --card-bg: #1f2937;
+            --button-bg: linear-gradient(45deg, #4f46e5, #818cf8);
+            --button-hover: linear-gradient(45deg, #3730a3, #6366f1);
+            --radius: 15px;
+            --shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
         }
 
-        /* تصميم أكثر أناقة لعرض الأيام وحالة الطلب */
-        .countdown {
-            font-size: 26px;
-            color: #fff;
-            margin-top: 30px;
+        body {
+            font-family: 'Tajawal', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 20px;
+            justify-content: center;
+            min-height: 100vh;
         }
-        .countdown .time-box {
-            padding: 20px 40px;
-            background: linear-gradient(135deg, #007bff, #0056b3);
-            color: #fff;
-            border-radius: 20px;
-            font-size: 28px;
+
+        .container {
+            background: var(--card-bg);
+            padding: 30px;
+            border-radius: var(--radius);
+            width: 100%;
+            max-width: 400px;
+            box-shadow: var(--shadow);
             text-align: center;
-            box-shadow: 0 8px 20px rgba(0, 0, 123, 0.3);
-            transition: background 0.3s, transform 0.3s;
-            position: relative;
         }
-        .countdown .time-box:hover {
-            background: linear-gradient(135deg, #0056b3, #007bff);
-            transform: translateY(-5px);
+
+        h1 {
+            color: var(--secondary-color);
+            font-size: 24px;
+            margin-bottom: 20px;
         }
-        .countdown .time-box::before {
-            content: "";
-            position: absolute;
-            top: -10px;
-            right: -10px;
-            bottom: -10px;
-            left: -10px;
-            border-radius: 20px;
-            background: rgba(0, 123, 255, 0.1);
-            z-index: -1;
-            transition: all 0.3s;
+
+        label {
+            font-size: 16px;
+            color: var(--text-color);
+            display: block;
+            margin-bottom: 8px;
         }
-        .countdown .time-box:hover::before {
-            background: rgba(0, 123, 255, 0.3);
+
+        input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            margin-bottom: 20px;
+            border: none;
+            border-radius: var(--radius);
+            background: #374151;
+            color: var(--text-color);
+            font-size: 14px;
+        }
+
+        button {
+            width: 100%;
+            padding: 12px;
+            background: var(--button-bg);
+            border: none;
+            border-radius: var(--radius);
+            color: var(--text-color);
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        button:hover {
+            background: var(--button-hover);
+            transform: translateY(-2px);
+        }
+
+        .countdown {
+            margin-top: 20px;
+            text-align: left;
+        }
+
+        .time-box {
+            background: #4b5563;
+            padding: 15px;
+            border-radius: var(--radius);
+            margin-bottom: 15px;
+            color: var(--text-color);
+            box-shadow: var(--shadow);
         }
 
         .status-message {
-            margin-top: 30px;
-            padding: 20px;
-            background: #f8f9fa;
-            border-left: 8px solid #007bff;
-            border-radius: 12px;
-            font-size: 22px;
-            color: #333;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            position: relative;
-            overflow: hidden;
+            margin-top: 15px;
+            padding: 15px;
+            background: var(--secondary-color);
+            border-radius: var(--radius);
+            color: var(--text-color);
         }
-
-        .status-message:before {
-            content: "";
-            position: absolute;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 8px;
-            background: linear-gradient(135deg, #007bff, #0056b3);
-        }
-
     </style>
 </head>
 <body>
     <div class="container">
         <h1>تتبع الطلب</h1>
-        <label for="trackOrderNumber">رقم الطلب</label>
-        <input type="text" id="trackOrderNumber" placeholder="أدخل رقم الطلب">
+        <label for="trackOrderNumber">رقم الطلب:</label>
+        <input type="text" id="trackOrderNumber" placeholder="أدخل رقم الطلب هنا">
         <button id="trackOrderBtn">تتبع</button>
-        <div id="countdownContainer"></div>
+        <div id="countdownContainer" class="countdown"></div>
         <div id="statusMessage" class="status-message"></div>
     </div>
 
@@ -174,15 +143,12 @@
                 onValue(orderRef, (snapshot) => {
                     const orderData = snapshot.val();
                     if (orderData) {
-                        document.getElementById('countdownContainer').innerHTML = `
-                            <h2>العد التنازلي للطلب رقم: ${orderData.orderNumber}</h2>
-                            <div class="countdown" id="countdown-${orderData.orderNumber}">
-                                <div class="time-box" id="days-${orderData.orderNumber}"></div>
-                            </div>
-                        `;
-                        startCountdown(orderData.expiresAt, orderData.orderNumber);
+                        const expirationDate = new Date(orderData.expiresAt);
+                        updateCountdown(expirationDate, orderData.orderNumber);
+                        document.getElementById('statusMessage').textContent = "تم تحديث حالة الطلب بنجاح";
                     } else {
-                        document.getElementById('countdownContainer').innerHTML = `<p>رقم الطلب غير موجود</p>`;
+                        document.getElementById('countdownContainer').innerHTML = `<p>رقم الطلب غير موجود.</p>`;
+                        document.getElementById('statusMessage').textContent = "تحقق من الرقم المدخل.";
                     }
                 });
             } else {
@@ -190,37 +156,33 @@
             }
         }
 
-        function startCountdown(expirationDate, orderNumber) {
-            const daysElement = document.getElementById(`days-${orderNumber}`);
-            const statusMessageElement = document.getElementById('statusMessage');
+        function updateCountdown(expirationDate, orderNumber) {
+            const countdownContainer = document.getElementById('countdownContainer');
 
-            function updateCountdown() {
+            function calculateTimeLeft() {
                 const now = new Date();
-                const expiration = new Date(expirationDate);
-                const totalSeconds = Math.max((expiration - now) / 1000, 0);
-
+                const totalSeconds = Math.max((expirationDate - now) / 1000, 0);
                 const days = Math.floor(totalSeconds / (3600 * 24));
+                const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
+                const minutes = Math.floor((totalSeconds % 3600) / 60);
+                const seconds = Math.floor(totalSeconds % 60);
 
-                daysElement.textContent = `باقي ${days} أيام`;
-
-                if (days >= 15 && days <= 20) {
-                    statusMessageElement.textContent = "تم الشحن إلى مخازننا في الإمارات";
-                } else if (days >= 10 && days <= 14) {
-                    statusMessageElement.textContent = "تم الاستلام في مخازننا داخل الإمارات";
-                } else if (days >= 5 && days <= 9) {
-                    statusMessageElement.textContent = "تم الشحن إلى العراق";
-                } else if (days >= 1 && days <= 4) {
-                    statusMessageElement.textContent = "تم الاستلام في العراق";
-                } else if (days === 0) {
-                    statusMessageElement.textContent = "تم توصيل الطلب للعميل";
-                } else {
-                    statusMessageElement.textContent = "الطلب غير متاح";
-                }
+                return { days, hours, minutes, seconds };
             }
 
-            // تشغيل التحديث كل ثانية
-            updateCountdown();
-            setInterval(updateCountdown, 1000);
+            function renderCountdown() {
+                const { days, hours, minutes, seconds } = calculateTimeLeft();
+
+                countdownContainer.innerHTML = `
+                    <div class="time-box">عدد الأيام المتبقية: ${days}</div>
+                    <div class="time-box">عدد الساعات المتبقية: ${hours}</div>
+                    <div class="time-box">عدد الدقائق المتبقية: ${minutes}</div>
+                    <div class="time-box">عدد الثواني المتبقية: ${seconds}</div>
+                `;
+            }
+
+            renderCountdown();
+            setInterval(renderCountdown, 1000);
         }
     </script>
 </body>
