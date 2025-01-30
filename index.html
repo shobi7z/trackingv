@@ -1,123 +1,347 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تتبع الطلب</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap">
+    <title>نظام تتبع الشحنات الذكي</title>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap">
+    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <style>
         :root {
-            --primary-color: #1e3a8a;
-            --secondary-color: #6366f1;
-            --text-color: #f3f4f6;
-            --background-color: #111827;
-            --card-bg: #1f2937;
-            --button-bg: linear-gradient(45deg, #4f46e5, #818cf8);
-            --button-hover: linear-gradient(45deg, #3730a3, #6366f1);
-            --radius: 15px;
-            --shadow: 0px 4px 15px rgba(0, 0, 0, 0.4);
+            --primary: #6366f1;
+            --secondary: #818cf8;
+            --accent: #f59e0b;
+            --text: #f3f4f6;
+            --bg: #0f172a;
+            --card: #1e293b;
+            --progress: #4f46e5;
+            --radius: 20px;
+            --shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
+            --glass: rgba(255, 255, 255, 0.05);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
         }
 
         body {
             font-family: 'Tajawal', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--background-color);
-            color: var(--text-color);
+            background: linear-gradient(135deg, var(--bg) 40%, #1e1b4b);
+            color: var(--text);
+            min-height: 100vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 100vh;
+            padding: 20px;
+            line-height: 1.6;
         }
 
         .container {
-            background: var(--card-bg);
-            padding: 30px;
-            border-radius: var(--radius);
+            background: var(--card);
             width: 100%;
-            max-width: 400px;
+            max-width: 800px;
+            padding: 2.5rem;
+            border-radius: var(--radius);
             box-shadow: var(--shadow);
-            text-align: center;
+            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border: 1px solid var(--glass);
+        }
+
+        .container:hover {
+            transform: translateY(-5px);
         }
 
         h1 {
-            color: var(--secondary-color);
-            font-size: 24px;
-            margin-bottom: 20px;
+            text-align: center;
+            color: var(--text);
+            margin-bottom: 2rem;
+            font-size: 2.2rem;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        h1 i {
+            color: var(--primary);
+            font-size: 2.5rem;
+        }
+
+        h1::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 120px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 2px;
+        }
+
+        .input-group {
+            margin-bottom: 2rem;
+            position: relative;
         }
 
         label {
-            font-size: 16px;
-            color: var(--text-color);
             display: block;
-            margin-bottom: 8px;
+            margin-bottom: 0.8rem;
+            color: var(--text);
+            font-size: 1.1rem;
+            padding-right: 0.5rem;
         }
 
-        input[type="text"] {
+        input {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 20px;
-            border: none;
+            padding: 1.2rem;
+            border: 2px solid #334155;
             border-radius: var(--radius);
-            background: #374151;
-            color: var(--text-color);
-            font-size: 14px;
+            background: rgba(30, 41, 59, 0.7);
+            color: var(--text);
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            padding-right: 3.5rem;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+        }
+
+        .input-group i {
+            position: absolute;
+            left: 20px;
+            top: 58%;
+            transform: translateY(-50%);
+            font-size: 1.4rem;
+            color: var(--primary);
+            opacity: 0.8;
+        }
+
+        .progress-steps {
+            display: flex;
+            justify-content: space-between;
+            margin: 2rem 0;
+            position: relative;
+            gap: 10px;
+        }
+
+        .progress-step {
+            position: relative;
+            text-align: center;
+            flex: 1;
+            min-width: 100px;
+            font-size: 0.85rem;
+            color: #64748b;
+            padding-top: 2.2rem;
+            transition: color 0.3s ease;
+        }
+
+        .progress-step.active {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        .progress-step::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 16px;
+            height: 16px;
+            background: #334155;
+            border-radius: 50%;
+            border: 3px solid var(--card);
+            z-index: 2;
+            transition: all 0.3s ease;
+        }
+
+        .progress-step::after {
+            content: '';
+            position: absolute;
+            top: 7px;
+            left: calc(50% + 70px);
+            width: calc(100% - 140px);
+            height: 3px;
+            background: #334155;
+            z-index: 1;
+        }
+
+        .progress-step:last-child::after {
+            display: none;
+        }
+
+        .progress-step.active::before {
+            background: var(--primary);
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.25);
+        }
+
+        .progress-step.active::after {
+            background: var(--primary);
         }
 
         button {
             width: 100%;
-            padding: 12px;
-            background: var(--button-bg);
+            padding: 1.2rem;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: none;
             border-radius: var(--radius);
-            color: var(--text-color);
-            font-size: 16px;
+            color: white;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: background 0.3s, transform 0.2s;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.8rem;
+            position: relative;
+            overflow: hidden;
         }
 
         button:hover {
-            background: var(--button-hover);
+            opacity: 0.95;
             transform: translateY(-2px);
         }
 
-        .countdown {
-            margin-top: 20px;
-            text-align: left;
+        .progress-bar {
+            height: 10px;
+            background: #334155;
+            border-radius: 5px;
+            margin: 2rem 0;
+            overflow: hidden;
+            position: relative;
         }
 
-        .time-box {
-            background: #4b5563;
-            padding: 15px;
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0;
+            transition: width 0.5s ease;
+        }
+
+        .countdown-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .time-card {
+            background: rgba(79, 70, 229, 0.1);
+            padding: 1.5rem;
             border-radius: var(--radius);
-            margin-bottom: 15px;
-            color: var(--text-color);
-            box-shadow: var(--shadow);
+            text-align: center;
+            border: 1px solid var(--primary);
+        }
+
+        .time-value {
+            font-size: 2.2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .time-label {
+            color: var(--text);
+            font-size: 0.95rem;
+            opacity: 0.9;
         }
 
         .status-message {
-            margin-top: 15px;
-            padding: 15px;
-            background: var(--secondary-color);
+            padding: 1.2rem;
             border-radius: var(--radius);
-            color: var(--text-color);
+            margin-top: 2rem;
+            text-align: center;
+            background: rgba(79, 70, 229, 0.2);
+            border: 1px solid var(--primary);
+            display: none;
+        }
+
+        .visible {
+            display: block;
+            animation: fadeInUp 0.5s ease;
+        }
+
+        .loading::after {
+            content: '';
+            position: absolute;
+            width: 24px;
+            height: 24px;
+            border: 3px solid rgba(255, 255, 255, 0.8);
+            border-radius: 50%;
+            border-top-color: transparent;
+            animation: spin 0.8s linear infinite;
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(15px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1.5rem;
+            }
+
+            .countdown-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .progress-step {
+                min-width: 80px;
+                font-size: 0.75rem;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>تتبع الطلب</h1>
-        <label for="trackOrderNumber">رقم الطلب:</label>
-        <input type="text" id="trackOrderNumber" placeholder="أدخل رقم الطلب هنا">
-        <button id="trackOrderBtn">تتبع</button>
-        <div id="countdownContainer" class="countdown"></div>
+        <h1><i class='bx bx-package'></i>تتبع شحنتك</h1>
+        
+        <div class="input-group">
+            <label for="trackOrderNumber"><i class='bx bx-barcode'></i> رقم التتبع</label>
+            <input type="text" id="trackOrderNumber" placeholder="أدخل رقم التتبع هنا">
+            <i class='bx bx-search-alt'></i>
+        </div>
+
+        <div class="progress-steps">
+            <div class="progress-step">تم الشراء</div>
+            <div class="progress-step">تم الشحن</div>
+            <div class="progress-step">السعودية</div>
+            <div class="progress-step">للعراق</div>
+            <div class="progress-step">بغداد</div>
+            <div class="progress-step">المخازن</div>
+            <div class="progress-step">التسليم</div>
+        </div>
+
+        <button id="trackOrderBtn">
+            <i class='bx bx-radar'></i> تتبع الشحنة
+        </button>
+
+        <div class="progress-bar">
+            <div class="progress-fill"></div>
+        </div>
+
+        <div class="countdown-grid" id="countdownContainer"></div>
+        
         <div id="statusMessage" class="status-message"></div>
     </div>
 
     <script type="module">
         import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
         import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-        import { getAnalytics } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-analytics.js";
 
         const firebaseConfig = {
             apiKey: "AIzaSyDEP35xsyNnDFNY4XEjm9ipvTBk44SKQ1Y",
@@ -126,63 +350,135 @@
             projectId: "qq-9acb9",
             storageBucket: "qq-9acb9.appspot.com",
             messagingSenderId: "541616407142",
-            appId: "1:541616407142:web:95d8b7773b371b05e7a3a7",
-            measurementId: "G-C60TKN68DE"
+            appId: "1:541616407142:web:95d8b7773b371b05e7a3a7"
         };
 
         const app = initializeApp(firebaseConfig);
-        const analytics = getAnalytics(app);
         const database = getDatabase(app);
 
-        document.getElementById('trackOrderBtn').addEventListener('click', trackOrder);
+        const trackBtn = document.getElementById('trackOrderBtn');
+        trackBtn.addEventListener('click', trackOrder);
 
-        function trackOrder() {
+        async function trackOrder() {
             const orderNumber = document.getElementById('trackOrderNumber').value.trim();
-            if (orderNumber) {
+            if (!orderNumber) {
+                showMessage('يرجى إدخال رقم التتبع', 'error');
+                return;
+            }
+
+            trackBtn.classList.add('loading');
+            trackBtn.disabled = true;
+
+            try {
                 const orderRef = ref(database, 'orders/' + orderNumber);
                 onValue(orderRef, (snapshot) => {
+                    trackBtn.classList.remove('loading');
+                    trackBtn.disabled = false;
+
                     const orderData = snapshot.val();
                     if (orderData) {
                         const expirationDate = new Date(orderData.expiresAt);
-                        updateCountdown(expirationDate, orderData.orderNumber);
-                        document.getElementById('statusMessage').textContent = "تم تحديث حالة الطلب بنجاح";
+                        updateCountdown(expirationDate, orderNumber);
+                        showMessage(`تم العثور على الشحنة #${orderNumber}`, 'success');
                     } else {
-                        document.getElementById('countdownContainer').innerHTML = `<p>رقم الطلب غير موجود.</p>`;
-                        document.getElementById('statusMessage').textContent = "تحقق من الرقم المدخل.";
+                        showMessage('رقم التتبع غير صحيح', 'error');
+                        clearCountdown();
                     }
-                });
-            } else {
-                alert('يرجى إدخال رقم الطلب');
+                }, { onlyOnce: true });
+            } catch (error) {
+                trackBtn.classList.remove('loading');
+                trackBtn.disabled = false;
+                showMessage('حدث خطأ في الاتصال', 'error');
             }
         }
 
         function updateCountdown(expirationDate, orderNumber) {
             const countdownContainer = document.getElementById('countdownContainer');
+            const progressFill = document.querySelector('.progress-fill');
+            const steps = document.querySelectorAll('.progress-step');
 
-            function calculateTimeLeft() {
-                const now = new Date();
-                const totalSeconds = Math.max((expirationDate - now) / 1000, 0);
-                const days = Math.floor(totalSeconds / (3600 * 24));
-                const hours = Math.floor((totalSeconds % (3600 * 24)) / 3600);
-                const minutes = Math.floor((totalSeconds % 3600) / 60);
-                const seconds = Math.floor(totalSeconds % 60);
+            let countdownInterval = setInterval(() => {
+                const now = new Date().getTime();
+                const distance = expirationDate - now;
 
-                return { days, hours, minutes, seconds };
-            }
+                if (distance < 0) {
+                    clearInterval(countdownInterval);
+                    showMessage('انتهت مدة التتبع لهذه الشحنة', 'error');
+                    clearCountdown();
+                    return;
+                }
 
-            function renderCountdown() {
-                const { days, hours, minutes, seconds } = calculateTimeLeft();
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                const totalDays = Math.ceil(distance / (1000 * 60 * 60 * 24));
 
-                countdownContainer.innerHTML = `
-                    <div class="time-box">عدد الأيام المتبقية: ${days}</div>
-                    <div class="time-box">عدد الساعات المتبقية: ${hours}</div>
-                    <div class="time-box">عدد الدقائق المتبقية: ${minutes}</div>
-                    <div class="time-box">عدد الثواني المتبقية: ${seconds}</div>
-                `;
-            }
+                updateProgressSteps(totalDays);
+                updateProgressBar(totalDays);
+                updateCountdownDisplay(days, hours, minutes, seconds);
+            }, 1000);
+        }
 
-            renderCountdown();
-            setInterval(renderCountdown, 1000);
+        function updateProgressSteps(daysLeft) {
+            const steps = document.querySelectorAll('.progress-step');
+            const activeIndex = Math.max(6 - Math.floor(daysLeft / 5), 0);
+            
+            steps.forEach((step, index) => {
+                index <= activeIndex 
+                    ? step.classList.add('active')
+                    : step.classList.remove('active');
+            });
+        }
+
+        function updateProgressBar(daysLeft) {
+            const progressFill = document.querySelector('.progress-fill');
+            const progress = ((30 - daysLeft) / 30) * 100;
+            progressFill.style.width = `${Math.min(progress, 100)}%`;
+        }
+
+        function updateCountdownDisplay(d, h, m, s) {
+            const countdownContainer = document.getElementById('countdownContainer');
+            countdownContainer.innerHTML = `
+                <div class="time-card">
+                    <div class="time-value">${d}</div>
+                    <div class="time-label">أيام</div>
+                </div>
+                <div class="time-card">
+                    <div class="time-value">${h}</div>
+                    <div class="time-label">ساعات</div>
+                </div>
+                <div class="time-card">
+                    <div class="time-value">${m}</div>
+                    <div class="time-label">دقائق</div>
+                </div>
+                <div class="time-card">
+                    <div class="time-value">${s}</div>
+                    <div class="time-label">ثواني</div>
+                </div>
+            `;
+        }
+
+        function clearCountdown() {
+            document.getElementById('countdownContainer').innerHTML = '';
+            document.querySelector('.progress-fill').style.width = '0%';
+            document.querySelectorAll('.progress-step').forEach(step => {
+                step.classList.remove('active');
+            });
+        }
+
+        function showMessage(message, type) {
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.textContent = message;
+            statusMessage.className = `status-message visible ${type}`;
+            statusMessage.style.backgroundColor = type === 'error' 
+                ? 'rgba(239, 68, 68, 0.2)'
+                : 'rgba(79, 70, 229, 0.2)';
+            statusMessage.style.borderColor = type === 'error' ? '#ef4444' : '#4f46e5';
+            
+            setTimeout(() => {
+                statusMessage.classList.remove('visible');
+            }, 5000);
         }
     </script>
 </body>
