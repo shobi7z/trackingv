@@ -422,7 +422,7 @@
 
         function updateProgressSteps(daysLeft) {
             const steps = document.querySelectorAll('.progress-step');
-            const activeIndex = Math.max(6 - Math.floor(daysLeft / 5), 0);
+            const activeIndex = Math.max(6 - Math.floor(daysLeft / 4), 0);
             
             steps.forEach((step, index) => {
                 index <= activeIndex 
