@@ -153,7 +153,6 @@
             font-weight: 500;
         }
 
-        /* تصميم الزر الجديد */
         button {
             width: 100%;
             padding: 1.2rem;
@@ -206,33 +205,6 @@
             to { transform: translateX(100%) rotate(45deg); }
         }
 
-        .countdown-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 0.8rem;
-            margin: 1.5rem 0;
-        }
-
-        .time-card {
-            background: rgba(99, 102, 241, 0.1);
-            padding: 1rem;
-            border-radius: 8px;
-            text-align: center;
-            border: 1px solid var(--primary);
-        }
-
-        .time-value {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin-bottom: 0.3rem;
-        }
-
-        .time-label {
-            font-size: 0.8rem;
-            color: #94a3b8;
-        }
-
         .status-message {
             padding: 1rem;
             border-radius: 8px;
@@ -274,10 +246,6 @@
                 padding: 1.5rem;
                 max-width: 400px;
             }
-            
-            .countdown-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
         }
     </style>
 </head>
@@ -318,8 +286,6 @@
         <button id="trackOrderBtn">
             <i class='bx bx-radar'></i>تتبع الآن
         </button>
-
-        <div class="countdown-grid" id="countdownContainer"></div>
         
         <div id="statusMessage" class="status-message"></div>
     </div>
@@ -384,8 +350,6 @@
         }
 
         function startCountdown(endDate) {
-            const countdownContainer = document.getElementById('countdownContainer');
-            
             const update = () => {
                 const now = new Date();
                 const diff = endDate - now;
@@ -398,29 +362,6 @@
                 }
 
                 const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-
-                countdownContainer.innerHTML = `
-                    <div class="time-card">
-                        <div class="time-value">${days}</div>
-                        <div class="time-label">أيام</div>
-                    </div>
-                    <div class="time-card">
-                        <div class="time-value">${hours}</div>
-                        <div class="time-label">ساعات</div>
-                    </div>
-                    <div class="time-card">
-                        <div class="time-value">${minutes}</div>
-                        <div class="time-label">دقائق</div>
-                    </div>
-                    <div class="time-card">
-                        <div class="time-value">${seconds}</div>
-                        <div class="time-label">ثواني</div>
-                    </div>
-                `;
-
                 updateProgressSteps(days);
             };
 
@@ -448,7 +389,6 @@
         }
 
         function resetUI() {
-            document.getElementById('countdownContainer').innerHTML = '';
             document.querySelectorAll('.progress-step').forEach(step => {
                 step.classList.remove('active');
             });
