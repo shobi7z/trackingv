@@ -2,22 +2,19 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نظام تتبع الشحنات الذكي</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>تتبع الشحنات - Mobile</title>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap">
     <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
     <style>
         :root {
             --primary: #6366f1;
             --secondary: #818cf8;
-            --accent: #f59e0b;
             --text: #f3f4f6;
             --bg: #0f172a;
             --card: #1e293b;
-            --progress: #4f46e5;
-            --radius: 20px;
-            --shadow: 0 12px 40px rgba(0, 0, 0, 0.25);
-            --glass: rgba(255, 255, 255, 0.05);
+            --radius: 12px;
+            --shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
         }
 
         * {
@@ -28,137 +25,95 @@
 
         body {
             font-family: 'Tajawal', sans-serif;
-            background: linear-gradient(135deg, var(--bg) 40%, #1e1b4b);
+            background: var(--bg);
             color: var(--text);
             min-height: 100vh;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            line-height: 1.6;
+            padding: 12px;
         }
 
         .container {
             background: var(--card);
             width: 100%;
-            max-width: 800px;
-            padding: 2.5rem;
+            max-width: 100%;
+            margin: auto;
+            padding: 1.2rem;
             border-radius: var(--radius);
             box-shadow: var(--shadow);
-            transition: transform 0.4s cubic-bezier(0.4, 0, 0.2, 1);
-            border: 1px solid var(--glass);
-        }
-
-        .container:hover {
-            transform: translateY(-5px);
         }
 
         h1 {
             text-align: center;
-            color: var(--text);
-            margin-bottom: 2rem;
-            font-size: 2.2rem;
-            position: relative;
+            font-size: 1.6rem;
+            margin-bottom: 1.5rem;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 1rem;
-            padding-bottom: 1rem;
+            gap: 0.8rem;
         }
 
         h1 i {
             color: var(--primary);
-            font-size: 2.5rem;
-        }
-
-        h1::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 120px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            border-radius: 2px;
+            font-size: 1.8rem;
         }
 
         .input-group {
-            margin-bottom: 2rem;
+            margin-bottom: 1.5rem;
             position: relative;
         }
 
         label {
             display: block;
-            margin-bottom: 0.8rem;
-            color: var(--text);
-            font-size: 1.1rem;
-            padding-right: 0.5rem;
+            margin-bottom: 0.6rem;
+            font-size: 0.9rem;
+            color: #94a3b8;
         }
 
         input {
             width: 100%;
-            padding: 1.2rem;
-            border: 2px solid #334155;
-            border-radius: var(--radius);
-            background: rgba(30, 41, 59, 0.7);
+            padding: 0.9rem;
+            border: 1px solid #334155;
+            border-radius: 8px;
+            background: #1e293b;
             color: var(--text);
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
-            padding-right: 3.5rem;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: var(--primary);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.2);
+            font-size: 1rem;
+            padding-right: 2.8rem;
         }
 
         .input-group i {
             position: absolute;
-            left: 20px;
-            top: 58%;
+            left: 12px;
+            top: 50%;
             transform: translateY(-50%);
-            font-size: 1.4rem;
+            font-size: 1.2rem;
             color: var(--primary);
-            opacity: 0.8;
+            opacity: 0.7;
         }
 
         .progress-steps {
             display: flex;
-            justify-content: space-between;
-            margin: 2rem 0;
+            flex-direction: column;
+            gap: 1.8rem;
+            margin: 1.5rem 0;
             position: relative;
-            gap: 10px;
         }
 
         .progress-step {
             position: relative;
-            text-align: center;
-            flex: 1;
-            min-width: 100px;
-            font-size: 0.85rem;
-            color: #64748b;
-            padding-top: 2.2rem;
-            transition: color 0.3s ease;
-        }
-
-        .progress-step.active {
-            color: var(--text);
-            font-weight: 500;
+            padding-right: 2rem;
+            min-height: 32px;
         }
 
         .progress-step::before {
             content: '';
             position: absolute;
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
+            right: -8px;
+            top: 4px;
             width: 16px;
             height: 16px;
             background: #334155;
             border-radius: 50%;
-            border: 3px solid var(--card);
+            border: 2px solid var(--card);
             z-index: 2;
             transition: all 0.3s ease;
         }
@@ -166,12 +121,11 @@
         .progress-step::after {
             content: '';
             position: absolute;
-            top: 7px;
-            left: calc(50% + 70px);
-            width: calc(100% - 140px);
-            height: 3px;
+            right: 0;
+            top: 20px;
+            bottom: -1.8rem;
+            width: 2px;
             background: #334155;
-            z-index: 1;
         }
 
         .progress-step:last-child::after {
@@ -180,159 +134,190 @@
 
         .progress-step.active::before {
             background: var(--primary);
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.25);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
         }
 
         .progress-step.active::after {
             background: var(--primary);
         }
 
+        .progress-step span {
+            display: block;
+            font-size: 0.85rem;
+            color: #94a3b8;
+            transition: color 0.3s ease;
+        }
+
+        .progress-step.active span {
+            color: var(--text);
+            font-weight: 500;
+        }
+
+        /* تصميم الزر الجديد */
         button {
             width: 100%;
             padding: 1.2rem;
             background: linear-gradient(135deg, var(--primary), var(--secondary));
             border: none;
-            border-radius: var(--radius);
+            border-radius: 12px;
             color: white;
             font-size: 1.1rem;
             font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s ease;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 0.8rem;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
             position: relative;
             overflow: hidden;
+            box-shadow: 0 4px 24px rgba(99, 102, 241, 0.2);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         button:hover {
-            opacity: 0.95;
             transform: translateY(-2px);
+            box-shadow: 0 6px 32px rgba(99, 102, 241, 0.3);
         }
 
-        .progress-bar {
-            height: 10px;
-            background: #334155;
-            border-radius: 5px;
-            margin: 2rem 0;
-            overflow: hidden;
-            position: relative;
+        button:active {
+            transform: translateY(0);
         }
 
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, var(--primary), var(--secondary));
-            width: 0;
-            transition: width 0.5s ease;
+        button::after {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(
+                45deg,
+                transparent,
+                rgba(255, 255, 255, 0.1),
+                transparent
+            );
+            transform: rotate(45deg);
+            animation: btnShine 3s infinite;
+        }
+
+        @keyframes btnShine {
+            from { transform: translateX(-100%) rotate(45deg); }
+            to { transform: translateX(100%) rotate(45deg); }
         }
 
         .countdown-grid {
             display: grid;
-            grid-template-columns: repeat(4, 1fr);
-            gap: 1.5rem;
-            margin: 2rem 0;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8rem;
+            margin: 1.5rem 0;
         }
 
         .time-card {
-            background: rgba(79, 70, 229, 0.1);
-            padding: 1.5rem;
-            border-radius: var(--radius);
+            background: rgba(99, 102, 241, 0.1);
+            padding: 1rem;
+            border-radius: 8px;
             text-align: center;
             border: 1px solid var(--primary);
         }
 
         .time-value {
-            font-size: 2.2rem;
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--primary);
-            margin-bottom: 0.5rem;
+            margin-bottom: 0.3rem;
         }
 
         .time-label {
-            color: var(--text);
-            font-size: 0.95rem;
-            opacity: 0.9;
+            font-size: 0.8rem;
+            color: #94a3b8;
         }
 
         .status-message {
-            padding: 1.2rem;
-            border-radius: var(--radius);
-            margin-top: 2rem;
+            padding: 1rem;
+            border-radius: 8px;
+            margin-top: 1rem;
             text-align: center;
             background: rgba(79, 70, 229, 0.2);
             border: 1px solid var(--primary);
+            font-size: 0.9rem;
             display: none;
         }
 
         .visible {
             display: block;
-            animation: fadeInUp 0.5s ease;
+            animation: fadeIn 0.3s ease;
         }
 
         .loading::after {
             content: '';
-            position: absolute;
-            width: 24px;
-            height: 24px;
-            border: 3px solid rgba(255, 255, 255, 0.8);
+            display: inline-block;
+            width: 18px;
+            height: 18px;
+            border: 2px solid #fff;
             border-radius: 50%;
             border-top-color: transparent;
             animation: spin 0.8s linear infinite;
         }
 
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(15px); }
-            to { opacity: 1; transform: translateY(0); }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
         }
 
         @keyframes spin {
             to { transform: rotate(360deg); }
         }
 
-        @media (max-width: 768px) {
+        @media (min-width: 480px) {
             .container {
                 padding: 1.5rem;
+                max-width: 400px;
             }
-
+            
             .countdown-grid {
-                grid-template-columns: repeat(2, 1fr);
-            }
-
-            .progress-step {
-                min-width: 80px;
-                font-size: 0.75rem;
+                grid-template-columns: repeat(4, 1fr);
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1><i class='bx bx-package'></i>تتبع شحنتك</h1>
+        <h1><i class='bx bx-package'></i>تتبع الشحنة</h1>
         
         <div class="input-group">
-            <label for="trackOrderNumber"><i class='bx bx-barcode'></i> رقم التتبع</label>
-            <input type="text" id="trackOrderNumber" placeholder="أدخل رقم التتبع هنا">
-            <i class='bx bx-search-alt'></i>
+            <label>رقم التتبع</label>
+            <input type="text" id="trackOrderNumber" placeholder="أدخل الرقم هنا">
+            <i class='bx bx-barcode'></i>
         </div>
 
         <div class="progress-steps">
-            <div class="progress-step">تم الشراء</div>
-            <div class="progress-step">تم الشحن</div>
-            <div class="progress-step">السعودية</div>
-            <div class="progress-step">للعراق</div>
-            <div class="progress-step">بغداد</div>
-            <div class="progress-step">المخازن</div>
-            <div class="progress-step">التسليم</div>
+            <div class="progress-step">
+                <span>تم الشراء</span>
+            </div>
+            <div class="progress-step">
+                <span>تم الشحن</span>
+            </div>
+            <div class="progress-step">
+                <span>الاستلام بالسعودية</span>
+            </div>
+            <div class="progress-step">
+                <span>الشحن للعراق</span>
+            </div>
+            <div class="progress-step">
+                <span>الاستلام ببغداد</span>
+            </div>
+            <div class="progress-step">
+                <span>الاستلام بالمخازن</span>
+            </div>
+            <div class="progress-step">
+                <span>تم التسليم</span>
+            </div>
         </div>
 
         <button id="trackOrderBtn">
-            <i class='bx bx-radar'></i> تتبع الشحنة
+            <i class='bx bx-radar'></i>تتبع الآن
         </button>
-
-        <div class="progress-bar">
-            <div class="progress-fill"></div>
-        </div>
 
         <div class="countdown-grid" id="countdownContainer"></div>
         
@@ -357,73 +342,104 @@
         const database = getDatabase(app);
 
         const trackBtn = document.getElementById('trackOrderBtn');
-        trackBtn.addEventListener('click', trackOrder);
-
-        async function trackOrder() {
+        
+        trackBtn.addEventListener('click', async () => {
             const orderNumber = document.getElementById('trackOrderNumber').value.trim();
+            
             if (!orderNumber) {
                 showMessage('يرجى إدخال رقم التتبع', 'error');
                 return;
             }
 
-            trackBtn.classList.add('loading');
             trackBtn.disabled = true;
+            trackBtn.innerHTML = `<i class='bx bx-loader'></i>جاري البحث...`;
 
             try {
-                const orderRef = ref(database, 'orders/' + orderNumber);
+                const orderRef = ref(database, `orders/${orderNumber}`);
+                
                 onValue(orderRef, (snapshot) => {
-                    trackBtn.classList.remove('loading');
                     trackBtn.disabled = false;
+                    trackBtn.innerHTML = `<i class='bx bx-radar'></i>تتبع الآن`;
 
-                    const orderData = snapshot.val();
-                    if (orderData) {
-                        const expirationDate = new Date(orderData.expiresAt);
-                        updateCountdown(expirationDate, orderNumber);
+                    const data = snapshot.val();
+                    if (data) {
+                        updateUI(data);
                         showMessage(`تم العثور على الشحنة #${orderNumber}`, 'success');
                     } else {
                         showMessage('رقم التتبع غير صحيح', 'error');
-                        clearCountdown();
+                        resetUI();
                     }
                 }, { onlyOnce: true });
+
             } catch (error) {
-                trackBtn.classList.remove('loading');
                 trackBtn.disabled = false;
+                trackBtn.innerHTML = `<i class='bx bx-radar'></i>تتبع الآن`;
                 showMessage('حدث خطأ في الاتصال', 'error');
             }
+        });
+
+        function updateUI(data) {
+            const expirationDate = new Date(data.expiresAt);
+            startCountdown(expirationDate);
         }
 
-        function updateCountdown(expirationDate, orderNumber) {
+        function startCountdown(endDate) {
             const countdownContainer = document.getElementById('countdownContainer');
-            const progressFill = document.querySelector('.progress-fill');
-            const steps = document.querySelectorAll('.progress-step');
+            
+            const update = () => {
+                const now = new Date();
+                const diff = endDate - now;
 
-            let countdownInterval = setInterval(() => {
-                const now = new Date().getTime();
-                const distance = expirationDate - now;
-
-                if (distance < 0) {
-                    clearInterval(countdownInterval);
-                    showMessage('انتهت مدة التتبع لهذه الشحنة', 'error');
-                    clearCountdown();
+                if (diff <= 0) {
+                    clearInterval(interval);
+                    showMessage('انتهت مدة التتبع', 'error');
+                    resetUI();
                     return;
                 }
 
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                const totalDays = Math.ceil(distance / (1000 * 60 * 60 * 24));
+                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((diff % (1000 * 60)) / 1000);
 
-                updateProgressSteps(totalDays);
-                updateProgressBar(totalDays);
-                updateCountdownDisplay(days, hours, minutes, seconds);
-            }, 1000);
+                countdownContainer.innerHTML = `
+                    <div class="time-card">
+                        <div class="time-value">${days}</div>
+                        <div class="time-label">أيام</div>
+                    </div>
+                    <div class="time-card">
+                        <div class="time-value">${hours}</div>
+                        <div class="time-label">ساعات</div>
+                    </div>
+                    <div class="time-card">
+                        <div class="time-value">${minutes}</div>
+                        <div class="time-label">دقائق</div>
+                    </div>
+                    <div class="time-card">
+                        <div class="time-value">${seconds}</div>
+                        <div class="time-label">ثواني</div>
+                    </div>
+                `;
+
+                updateProgressSteps(days);
+            };
+
+            update();
+            const interval = setInterval(update, 1000);
         }
 
         function updateProgressSteps(daysLeft) {
             const steps = document.querySelectorAll('.progress-step');
-            const activeIndex = Math.max(6 - Math.floor(daysLeft / 4), 0);
-            
+            let activeIndex = 0;
+
+            if (daysLeft <= 2) activeIndex = 6;
+            else if (daysLeft <= 3) activeIndex = 5;
+            else if (daysLeft <= 5) activeIndex = 4;
+            else if (daysLeft <= 8) activeIndex = 3;
+            else if (daysLeft <= 10) activeIndex = 2;
+            else if (daysLeft <= 13) activeIndex = 1;
+            else if (daysLeft <= 15) activeIndex = 0;
+
             steps.forEach((step, index) => {
                 index <= activeIndex 
                     ? step.classList.add('active')
@@ -431,54 +447,21 @@
             });
         }
 
-        function updateProgressBar(daysLeft) {
-            const progressFill = document.querySelector('.progress-fill');
-            const progress = ((30 - daysLeft) / 30) * 100;
-            progressFill.style.width = `${Math.min(progress, 100)}%`;
-        }
-
-        function updateCountdownDisplay(d, h, m, s) {
-            const countdownContainer = document.getElementById('countdownContainer');
-            countdownContainer.innerHTML = `
-                <div class="time-card">
-                    <div class="time-value">${d}</div>
-                    <div class="time-label">أيام</div>
-                </div>
-                <div class="time-card">
-                    <div class="time-value">${h}</div>
-                    <div class="time-label">ساعات</div>
-                </div>
-                <div class="time-card">
-                    <div class="time-value">${m}</div>
-                    <div class="time-label">دقائق</div>
-                </div>
-                <div class="time-card">
-                    <div class="time-value">${s}</div>
-                    <div class="time-label">ثواني</div>
-                </div>
-            `;
-        }
-
-        function clearCountdown() {
+        function resetUI() {
             document.getElementById('countdownContainer').innerHTML = '';
-            document.querySelector('.progress-fill').style.width = '0%';
             document.querySelectorAll('.progress-step').forEach(step => {
                 step.classList.remove('active');
             });
         }
 
-        function showMessage(message, type) {
-            const statusMessage = document.getElementById('statusMessage');
-            statusMessage.textContent = message;
-            statusMessage.className = `status-message visible ${type}`;
-            statusMessage.style.backgroundColor = type === 'error' 
-                ? 'rgba(239, 68, 68, 0.2)'
-                : 'rgba(79, 70, 229, 0.2)';
-            statusMessage.style.borderColor = type === 'error' ? '#ef4444' : '#4f46e5';
+        function showMessage(text, type) {
+            const msg = document.getElementById('statusMessage');
+            msg.textContent = text;
+            msg.className = `status-message visible ${type}`;
             
             setTimeout(() => {
-                statusMessage.classList.remove('visible');
-            }, 5000);
+                msg.classList.remove('visible');
+            }, 3000);
         }
     </script>
 </body>
