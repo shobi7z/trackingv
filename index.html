@@ -2,298 +2,419 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>تتبع الشحنات - Mobile</title>
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap">
-    <link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تتبع طلبك</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         :root {
-            --primary: #6366f1;
-            --secondary: #818cf8;
-            --text: #f3f4f6;
-            --bg: #0f172a;
-            --card: #1e293b;
-            --radius: 12px;
-            --shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+            --primary: #6c5ce7;
+            --secondary: #a29bfe;
+            --success: #00b894;
+            --info: #0984e3;
+            --warning: #fdcb6e;
+            --danger: #d63031;
+            --dark: #2d3436;
+            --darker: #1e272e;
+            --light: #f5f6fa;
+            --text: #dfe6e9;
+            --text-secondary: #b2bec3;
         }
-
+        
         * {
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-        }
-
-        body {
             font-family: 'Tajawal', sans-serif;
-            background: var(--bg);
+        }
+        
+        body {
+            background-color: var(--darker);
             color: var(--text);
+            line-height: 1.6;
             min-height: 100vh;
-            display: flex;
-            padding: 12px;
+            padding: 20px;
         }
-
+        
         .container {
-            background: var(--card);
-            width: 100%;
-            max-width: 100%;
-            margin: auto;
-            padding: 1.2rem;
-            border-radius: var(--radius);
-            box-shadow: var(--shadow);
-        }
-
-        h1 {
-            text-align: center;
-            font-size: 1.6rem;
-            margin-bottom: 1.5rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-        }
-
-        h1 i {
-            color: var(--primary);
-            font-size: 1.8rem;
-        }
-
-        .input-group {
-            margin-bottom: 1.5rem;
-            position: relative;
-        }
-
-        label {
-            display: block;
-            margin-bottom: 0.6rem;
-            font-size: 0.9rem;
-            color: #94a3b8;
-        }
-
-        input {
-            width: 100%;
-            padding: 0.9rem;
-            border: 1px solid #334155;
-            border-radius: 8px;
-            background: #1e293b;
-            color: var(--text);
-            font-size: 1rem;
-            padding-right: 2.8rem;
-        }
-
-        .input-group i {
-            position: absolute;
-            left: 12px;
-            top: 50%;
-            transform: translateY(-50%);
-            font-size: 1.2rem;
-            color: var(--primary);
-            opacity: 0.7;
-        }
-
-        .progress-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 1.8rem;
-            margin: 1.5rem 0;
-            position: relative;
-        }
-
-        .progress-step {
-            position: relative;
-            padding-right: 2rem;
-            min-height: 32px;
-        }
-
-        .progress-step::before {
-            content: '';
-            position: absolute;
-            right: -8px;
-            top: 4px;
-            width: 16px;
-            height: 16px;
-            background: #334155;
-            border-radius: 50%;
-            border: 2px solid var(--card);
-            z-index: 2;
-            transition: all 0.3s ease;
-        }
-
-        .progress-step::after {
-            content: '';
-            position: absolute;
-            right: 0;
-            top: 20px;
-            bottom: -1.8rem;
-            width: 2px;
-            background: #334155;
-        }
-
-        .progress-step:last-child::after {
-            display: none;
-        }
-
-        .progress-step.active::before {
-            background: var(--primary);
-            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.2);
-        }
-
-        .progress-step.active::after {
-            background: var(--primary);
-        }
-
-        .progress-step span {
-            display: block;
-            font-size: 0.85rem;
-            color: #94a3b8;
-            transition: color 0.3s ease;
-        }
-
-        .progress-step.active span {
-            color: var(--text);
-            font-weight: 500;
-        }
-
-        button {
-            width: 100%;
-            padding: 1.2rem;
-            background: linear-gradient(135deg, var(--primary), var(--secondary));
-            border: none;
-            border-radius: 12px;
-            color: white;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 0.8rem;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 25px;
+            background: linear-gradient(145deg, #2d3436, #1e272e);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3),
+                        0 0 0 1px rgba(255, 255, 255, 0.05);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 4px 24px rgba(99, 102, 241, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
-
-        button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 32px rgba(99, 102, 241, 0.3);
-        }
-
-        button:active {
-            transform: translateY(0);
-        }
-
-        button::after {
+        
+        .container::before {
             content: '';
             position: absolute;
             top: -50%;
             left: -50%;
             width: 200%;
             height: 200%;
-            background: linear-gradient(
-                45deg,
-                transparent,
-                rgba(255, 255, 255, 0.1),
-                transparent
-            );
-            transform: rotate(45deg);
-            animation: btnShine 3s infinite;
+            background: radial-gradient(circle, rgba(108, 92, 231, 0.1) 0%, transparent 70%);
+            z-index: -1;
+            animation: rotate 20s linear infinite;
         }
-
-        @keyframes btnShine {
-            from { transform: translateX(-100%) rotate(45deg); }
-            to { transform: translateX(100%) rotate(45deg); }
+        
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-
-        .status-message {
-            padding: 1rem;
-            border-radius: 8px;
-            margin-top: 1rem;
+        
+        h1 {
+            color: var(--primary);
             text-align: center;
-            background: rgba(79, 70, 229, 0.2);
-            border: 1px solid var(--primary);
-            font-size: 0.9rem;
-            display: none;
-        }
-
-        .visible {
-            display: block;
-            animation: fadeIn 0.3s ease;
-        }
-
-        .loading::after {
-            content: '';
+            margin-bottom: 30px;
+            font-weight: 700;
+            font-size: 2rem;
+            position: relative;
             display: inline-block;
-            width: 18px;
-            height: 18px;
-            border: 2px solid #fff;
-            border-radius: 50%;
-            border-top-color: transparent;
-            animation: spin 0.8s linear infinite;
+            width: 100%;
         }
-
+        
+        h1::after {
+            content: '';
+            display: block;
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), transparent);
+            margin: 10px auto 0;
+            border-radius: 2px;
+        }
+        
+        .search-box {
+            display: flex;
+            margin-bottom: 30px;
+            position: relative;
+        }
+        
+        .search-box input {
+            flex: 1;
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px 0 0 8px;
+            font-size: 16px;
+            outline: none;
+            background-color: rgba(255, 255, 255, 0.1);
+            color: var(--text);
+            transition: all 0.3s ease;
+            box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+        
+        .search-box input::placeholder {
+            color: var(--text-secondary);
+        }
+        
+        .search-box input:focus {
+            background-color: rgba(255, 255, 255, 0.15);
+            box-shadow: 0 0 0 2px var(--primary);
+        }
+        
+        .search-box button {
+            padding: 0 25px;
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 0 8px 8px 0;
+            cursor: pointer;
+            font-size: 16px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .search-box button:hover {
+            background: linear-gradient(135deg, var(--secondary), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 8px rgba(0, 0, 0, 0.15);
+        }
+        
+        .search-box button:active {
+            transform: translateY(0);
+        }
+        
+        .order-status {
+            display: none;
+            margin-top: 30px;
+            animation: fadeIn 0.5s ease;
+        }
+        
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-
+        
+        .status-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 20px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+        }
+        
+        .order-number {
+            font-weight: bold;
+            font-size: 18px;
+            color: var(--primary);
+        }
+        
+        .current-status {
+            background: linear-gradient(135deg, var(--primary), var(--secondary));
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 14px;
+            font-weight: 500;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(to bottom, 
+                          var(--primary), 
+                          rgba(108, 92, 231, 0.3));
+        }
+        
+        .timeline-step {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.03);
+            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            transition: all 0.3s ease;
+        }
+        
+        .timeline-step:hover {
+            background: rgba(255, 255, 255, 0.07);
+            transform: translateX(5px);
+        }
+        
+        .timeline-step::before {
+            content: '';
+            position: absolute;
+            left: -40px;
+            top: 20px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: var(--dark);
+            border: 3px solid var(--darker);
+            z-index: 1;
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.3);
+        }
+        
+        .timeline-step.active::before {
+            background: var(--primary);
+            box-shadow: 0 0 0 3px rgba(108, 92, 231, 0.5),
+                        0 0 10px 3px rgba(108, 92, 231, 0.3);
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(108, 92, 231, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(108, 92, 231, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(108, 92, 231, 0); }
+        }
+        
+        .timeline-step.completed::before {
+            background: var(--success);
+            box-shadow: 0 0 0 3px rgba(0, 184, 148, 0.3);
+        }
+        
+        .timeline-step.completed .timeline-date {
+            color: var(--success);
+        }
+        
+        .timeline-step.active .timeline-title {
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .timeline-title {
+            font-weight: 500;
+            margin-bottom: 8px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .timeline-title i {
+            margin-left: 8px;
+            color: var(--primary);
+        }
+        
+        .timeline-date {
+            color: var(--text-secondary);
+            font-size: 14px;
+            margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .timeline-date i {
+            margin-left: 6px;
+            font-size: 12px;
+        }
+        
+        .timeline-desc {
+            color: var(--text-secondary);
+            font-size: 14px;
+            line-height: 1.5;
+        }
+        
+        .alert {
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: none;
+            background-color: rgba(214, 48, 49, 0.2);
+            border: 1px solid rgba(214, 48, 49, 0.3);
+            color: #ff7675;
+            backdrop-filter: blur(5px);
+        }
+        
+        .alert i {
+            margin-left: 8px;
+        }
+        
+        .loading {
+            display: none;
+            text-align: center;
+            margin: 30px 0;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+            border-top: 4px solid var(--primary);
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto 15px;
+        }
+        
         @keyframes spin {
-            to { transform: rotate(360deg); }
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
         }
-
-        @media (min-width: 480px) {
+        
+        footer {
+            text-align: center;
+            margin-top: 50px;
+            color: var(--text-secondary);
+            font-size: 14px;
+            padding: 20px;
+        }
+        
+        /* تصميم متجاوب للهواتف */
+        @media (max-width: 768px) {
             .container {
-                padding: 1.5rem;
-                max-width: 400px;
+                padding: 20px;
+                border-radius: 10px;
+                margin: 10px auto;
+            }
+            
+            h1 {
+                font-size: 1.5rem;
+            }
+            
+            .search-box {
+                flex-direction: column;
+            }
+            
+            .search-box input {
+                border-radius: 8px;
+                margin-bottom: 10px;
+            }
+            
+            .search-box button {
+                border-radius: 8px;
+                padding: 12px;
+            }
+            
+            .timeline {
+                padding-left: 30px;
+            }
+            
+            .timeline-step::before {
+                left: -30px;
+                top: 15px;
+                width: 16px;
+                height: 16px;
+            }
+            
+            .status-header {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            
+            .current-status {
+                margin-top: 10px;
             }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1><i class='bx bx-package'></i>تتبع الشحنة</h1>
+        <h1><i class="fas fa-box-open"></i> تتبع حالة طلبك</h1>
         
-        <div class="input-group">
-            <label>رقم التتبع</label>
-            <input type="text" id="trackOrderNumber" placeholder="أدخل الرقم هنا">
-            <i class='bx bx-barcode'></i>
+        <div class="alert" id="errorAlert">
+            <i class="fas fa-exclamation-circle"></i> <span id="errorText">رقم الطلب غير صحيح أو غير موجود</span>
         </div>
-
-        <div class="progress-steps">
-            <div class="progress-step">
-                <span>تم الشراء</span>
+        
+        <div class="search-box">
+            <input type="text" id="orderNumber" placeholder="أدخل رقم الطلب هنا...">
+            <button id="trackBtn"><i class="fas fa-search"></i> تتبع الطلب</button>
+        </div>
+        
+        <div class="loading" id="loading">
+            <div class="spinner"></div>
+            <p>جاري البحث عن طلبك...</p>
+        </div>
+        
+        <div class="order-status" id="orderStatus">
+            <div class="status-header">
+                <div class="order-number"><i class="fas fa-hashtag"></i> <span id="displayOrderNumber"></span></div>
+                <div class="current-status" id="currentStatus"></div>
             </div>
-            <div class="progress-step">
-                <span>تم الشحن</span>
-            </div>
-            <div class="progress-step">
-                <span>الاستلام بالامارات</span>
-            </div>
-            <div class="progress-step">
-                <span>الشحن للعراق</span>
-            </div>
-            <div class="progress-step">
-                <span>الاستلام ببغداد</span>
-            </div>
-            <div class="progress-step">
-                <span>الاستلام بالمخازن</span>
-            </div>
-            <div class="progress-step">
-                <span>تم التسليم</span>
+            
+            <div class="timeline" id="statusTimeline">
+                <!-- سيتم إضافة خطوات التتبع هنا تلقائياً -->
             </div>
         </div>
-
-        <button id="trackOrderBtn">
-            <i class='bx bx-radar'></i>تتبع الآن
-        </button>
-        
-        <div id="statusMessage" class="status-message"></div>
     </div>
+    
+    <footer>
+        <p>© 2023 نظام تتبع الطلبات. جميع الحقوق محفوظة.</p>
+    </footer>
 
-    <script type="module">
-        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-app.js";
-        import { getDatabase, ref, onValue } from "https://www.gstatic.com/firebasejs/10.13.1/firebase-database.js";
-
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.10.0/firebase-database.js"></script>
+    
+    <script>
+        // Initialize Firebase
         const firebaseConfig = {
             apiKey: "AIzaSyDEP35xsyNnDFNY4XEjm9ipvTBk44SKQ1Y",
             authDomain: "qq-9acb9.firebaseapp.com",
@@ -303,106 +424,121 @@
             messagingSenderId: "541616407142",
             appId: "1:541616407142:web:95d8b7773b371b05e7a3a7"
         };
-
-        const app = initializeApp(firebaseConfig);
-        const database = getDatabase(app);
-
-        const trackBtn = document.getElementById('trackOrderBtn');
         
-        trackBtn.addEventListener('click', async () => {
-            const orderNumber = document.getElementById('trackOrderNumber').value.trim();
+        firebase.initializeApp(firebaseConfig);
+        const database = firebase.database();
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            const trackBtn = document.getElementById('trackBtn');
+            const orderNumberInput = document.getElementById('orderNumber');
+            const orderStatusDiv = document.getElementById('orderStatus');
+            const errorAlert = document.getElementById('errorAlert');
+            const loadingDiv = document.getElementById('loading');
             
-            if (!orderNumber) {
-                showMessage('يرجى إدخال رقم التتبع', 'error');
-                return;
-            }
-
-            trackBtn.disabled = true;
-            trackBtn.innerHTML = `<i class='bx bx-loader'></i>جاري البحث...`;
-
-            try {
-                const orderRef = ref(database, `orders/${orderNumber}`);
+            trackBtn.addEventListener('click', trackOrder);
+            orderNumberInput.addEventListener('keypress', function(e) {
+                if (e.key === 'Enter') {
+                    trackOrder();
+                }
+            });
+            
+            function trackOrder() {
+                const orderNumber = orderNumberInput.value.trim();
                 
-                onValue(orderRef, (snapshot) => {
-                    trackBtn.disabled = false;
-                    trackBtn.innerHTML = `<i class='bx bx-radar'></i>تتبع الآن`;
-
-                    const data = snapshot.val();
-                    if (data) {
-                        updateUI(data);
-                        showMessage(`تم العثور على الشحنة #${orderNumber}`, 'success');
-                    } else {
-                        showMessage('رقم التتبع غير صحيح', 'error');
-                        resetUI();
-                    }
-                }, { onlyOnce: true });
-
-            } catch (error) {
-                trackBtn.disabled = false;
-                trackBtn.innerHTML = `<i class='bx bx-radar'></i>تتبع الآن`;
-                showMessage('حدث خطأ في الاتصال', 'error');
-            }
-        });
-
-        function updateUI(data) {
-            const expirationDate = new Date(data.expiresAt);
-            startCountdown(expirationDate);
-        }
-
-        function startCountdown(endDate) {
-            const update = () => {
-                const now = new Date();
-                const diff = endDate - now;
-
-                if (diff <= 0) {
-                    clearInterval(interval);
-                    showMessage('انتهت مدة التتبع', 'error');
-                    resetUI();
+                if (!orderNumber) {
+                    showError('الرجاء إدخال رقم الطلب');
                     return;
                 }
-
-                const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-                updateProgressSteps(days);
-            };
-
-            update();
-            const interval = setInterval(update, 1000);
-        }
-
-        function updateProgressSteps(daysLeft) {
-            const steps = document.querySelectorAll('.progress-step');
-            let activeIndex = 0;
-
-            if (daysLeft <= 2) activeIndex = 6;
-            else if (daysLeft <= 3) activeIndex = 5;
-            else if (daysLeft <= 5) activeIndex = 4;
-            else if (daysLeft <= 8) activeIndex = 3;
-            else if (daysLeft <= 10) activeIndex = 2;
-            else if (daysLeft <= 13) activeIndex = 1;
-            else if (daysLeft <= 15) activeIndex = 0;
-
-            steps.forEach((step, index) => {
-                index <= activeIndex 
-                    ? step.classList.add('active')
-                    : step.classList.remove('active');
-            });
-        }
-
-        function resetUI() {
-            document.querySelectorAll('.progress-step').forEach(step => {
-                step.classList.remove('active');
-            });
-        }
-
-        function showMessage(text, type) {
-            const msg = document.getElementById('statusMessage');
-            msg.textContent = text;
-            msg.className = `status-message visible ${type}`;
+                
+                // Show loading
+                loadingDiv.style.display = 'block';
+                orderStatusDiv.style.display = 'none';
+                errorAlert.style.display = 'none';
+                
+                // Check if order exists in database
+                const orderRef = database.ref('orders/' + orderNumber);
+                orderRef.once('value')
+                    .then((snapshot) => {
+                        loadingDiv.style.display = 'none';
+                        
+                        if (snapshot.exists()) {
+                            const orderData = snapshot.val();
+                            displayOrderStatus(orderNumber, orderData);
+                        } else {
+                            showError('رقم الطلب غير صحيح أو غير موجود');
+                        }
+                    })
+                    .catch((error) => {
+                        loadingDiv.style.display = 'none';
+                        showError('حدث خطأ أثناء جلب بيانات الطلب');
+                        console.error('Error fetching order:', error);
+                    });
+            }
             
-            setTimeout(() => {
-                msg.classList.remove('visible');
-            }, 3000);
-        }
+            function displayOrderStatus(orderNumber, orderData) {
+                document.getElementById('displayOrderNumber').textContent = orderNumber;
+                document.getElementById('currentStatus').textContent = orderData.status;
+                
+                const timeline = document.getElementById('statusTimeline');
+                timeline.innerHTML = '';
+                
+                // Define all possible statuses in order (with "جاري التجهيز" last)
+                const allStatuses = [
+                    { id: 'purchased', title: 'تم الشراء', desc: 'تم شراء المنتج بنجاح', icon: 'fa-check-circle' },
+                    { id: 'shipped_uae', title: 'تم الشحن للإمارات', desc: 'تم شحن الطلب إلى الإمارات', icon: 'fa-plane-departure' },
+                    { id: 'received_uae', title: 'تم الاستلام في الإمارات', desc: 'تم استلام الطلب في مستودع الإمارات', icon: 'fa-warehouse' },
+                    { id: 'shipped_iraq', title: 'تم الشحن للعراق', desc: 'تم شحن الطلب إلى العراق', icon: 'fa-truck' },
+                    { id: 'preparing', title: 'جاري التجهيز', desc: 'سوف يصل طلبك خلال 24 ساعة', icon: 'fa-cog' }
+                ];
+                
+                // Find the current status index
+                let currentStatusIndex = -1;
+                for (let i = 0; i < allStatuses.length; i++) {
+                    if (allStatuses[i].title === orderData.status) {
+                        currentStatusIndex = i;
+                        break;
+                    }
+                }
+                
+                // Create timeline steps
+                allStatuses.forEach((status, index) => {
+                    const stepDiv = document.createElement('div');
+                    stepDiv.className = 'timeline-step';
+                    
+                    if (index < currentStatusIndex) {
+                        stepDiv.classList.add('completed');
+                    } else if (index === currentStatusIndex) {
+                        stepDiv.classList.add('active');
+                    }
+                    
+                    const title = document.createElement('div');
+                    title.className = 'timeline-title';
+                    title.innerHTML = `<i class="fas ${status.icon}"></i> ${status.title}`;
+                    
+                    const desc = document.createElement('div');
+                    desc.className = 'timeline-desc';
+                    desc.textContent = status.desc;
+                    
+                    const date = document.createElement('div');
+                    date.className = 'timeline-date';
+                    date.innerHTML = `<i class="far fa-clock"></i> ${orderData.timestamp ? new Date(orderData.timestamp).toLocaleString('ar-SA') : 'غير معروف'}`;
+                    
+                    stepDiv.appendChild(title);
+                    stepDiv.appendChild(date);
+                    stepDiv.appendChild(desc);
+                    
+                    timeline.appendChild(stepDiv);
+                });
+                
+                orderStatusDiv.style.display = 'block';
+            }
+            
+            function showError(message) {
+                document.getElementById('errorText').textContent = message;
+                errorAlert.style.display = 'block';
+                orderStatusDiv.style.display = 'none';
+            }
+        });
     </script>
 </body>
 </html>
